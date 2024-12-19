@@ -3,26 +3,31 @@
 <section class="sensors">
     <h2>Monitoreo de Sensores</h2>
 <div class="sensor-section">
-    <div class="sensor">
-        <img src="images/motion-sensor-on.png" alt="Sensor de Movimiento">
- 
-        <p id="motionStatus">Estado: Apagado</p>
-        <button onclick="toggleSensor('motion', 'motionStatus', 'motionImage')">Encender/Apagar</button>
-    </div>
-    <hr>
-    <div class="sensor">
-        <img src="images/smoke-sensor.png" alt="Detector de Humo">
-        <p>Estado: <span id="smoke-sensor-status">No detecta humo</span></p>
-        <p id="smokeStatus"></p>
-        
-        <button onclick="toggleSmokeSensor()">Detectar Humo</button>
-    </div>
-    <hr>
-    <div class="sensor">
-        <img src="images/sound-sensor.png" alt="Sensor de Sonido">
-        <p id="soundStatus">Estado: Sin sonido fuerte</p>
-        <button onclick="checkSound()">Detectar Ruido</button>
-    </div>
+<div class="sensor-card">
+    <img src="images/motion-sensor-on.png" alt="Sensor de Movimiento">
+    <h3>Sensor de Movimiento</h3>
+    <button onclick="sendSensorAction('Movimiento', 'Encendido')">Encender</button>
+    <button onclick="sendSensorAction('Movimiento', 'Apagado')">Apagar</button>
 </div>
 
+<div class="sensor-card">
+    <img src="images/smoke-sensor.png" alt="Sensor de Humo">
+    <h3>Sensor de Humo</h3>
+    <button onclick="sendSensorAction('Humo', 'Detectado')">Detectar Humo</button>
+</div>
+
+<div class="sensor-card">
+    <img src="images/sound-sensor.png" alt="Sensor de Sonido">
+    <h3>Sensor de Sonido</h3>
+    <button onclick="sendSensorAction('Sonido', 'Detectado')">Detectar Ruido</button>
+</div>
+
+</div>
+
+
+
+
 <?php include 'includes/footer.php'; ?>
+
+
+
