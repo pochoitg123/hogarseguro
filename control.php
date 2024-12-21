@@ -1,45 +1,24 @@
-<?php include 'includes/header.php'; ?>
+<?php
+// Archivo para controlar el LED del ESP32
 
-<section class="sensors">
-    <h2>Monitoreo de Sensores</h2>
-    <div class="sensor-section">
-        <div class="sensor-card">
-            <img src="images/motion-sensor-on.png" alt="Sensor de Movimiento">
-            <h3>Sensor de Movimiento</h3>
-            <button onclick="sendSensorAction('Movimiento', 'Encender')">Encender LED</button>
-            <button onclick="sendSensorAction('Movimiento', 'Apagar')">Apagar LED</button>
-        </div>
-        <div class="sensor-card">
-            <img src="images/smoke-sensor.png" alt="Sensor de Humo">
-            <h3>Sensor de Humo</h3>
-            <button onclick="sendSensorAction('Humo', 'Detectado')">Detectar Humo</button>
-        </div>
-        <div class="sensor-card">
-            <img src="images/sound-sensor.png" alt="Sensor de Sonido">
-            <h3>Sensor de Sonido</h3>
-            <button onclick="sendSensorAction('Sonido', 'Detectado')">Detectar Ruido</button>
-        </div>
-    </div>
-</section>
+// Estado del LED
+$ledCommand = "OFF"; // Por defecto, el LED está apagado
 
-<script>
-function sendSensorAction(sensor, action) {
-    fetch('control_led.php', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: `sensor=${sensor}&action=${action}`  // Enviamos el sensor y la acción al servidor
-    })
-    .then(response => response.text())
-    .then(data => {
-        alert(data);  // Muestra la respuesta del servidor (mensaje de éxito o error)
-    })
-    .catch(error => {
-        console.error('Error:', error);  // Si hay un error, lo mostramos en la consola
-    });
+// Si se recibe un estado del ESP32
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $ledState = $_POST['ledState'] ?? null;
+
+    if ($ledState) {
+        // Registrar el estado recibido del ESP32
+        file_put_contents("led_status.txt", $ledState);
+    }
 }
-</script>
 
-<?php include 'includes/footer.php'; ?>
-    
+// Leer el comando del LED del archivo (si existe)
+if (file_exists("led_command.txt")) {
+    $ledCommand = trim(file_get_contents("led_command.txt"));
+}
+
+// Devolver el comando actual para el LED
+echo $ledCommand;
+?>
