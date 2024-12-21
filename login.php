@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $contrasena = $_POST['contrasena'];
 
     // Conexión a la base de datos
-    $conn = new mysqli("localhost", "root", "", "hogar_seguro");
+    $conn = new mysqli("localhost", "root", "StrongPass123!", "hogar_seguro");
 
     if ($conn->connect_error) {
         die("Error de conexión: " . $conn->connect_error);

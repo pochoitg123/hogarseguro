@@ -2,7 +2,7 @@
 // Conexión a la base de datos
 $host = "localhost";
 $user = "root"; // Usuario predeterminado de MySQL en XAMPP
-$password = ""; // Contraseña de MySQL (vacía en XAMPP por defecto)
+$password = "StrongPass123!"; // Contraseña de MySQL (vacía en XAMPP por defecto)
 $database = "hogar_seguro"; // Nombre de la base de datos
 
 $conn = new mysqli($host, $user, $password, $database);

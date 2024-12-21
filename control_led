@@ -1,0 +1,25 @@
+<?php
+// control_led.php
+
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    // Obtener los parámetros enviados
+    $sensor = $_POST['sensor'] ?? '';
+    $action = $_POST['action'] ?? '';
+
+    if ($sensor === 'Movimiento') {
+        if ($action === 'Encender') {
+            // Guardar el comando para encender el LED en el archivo
+            file_put_contents('led_command.txt', 'ON');
+            echo "LED Encendido por Sensor de Movimiento.";
+        } elseif ($action === 'Apagar') {
+            // Guardar el comando para apagar el LED en el archivo
+            file_put_contents('led_command.txt', 'OFF');
+            echo "LED Apagado por Sensor de Movimiento.";
+        }
+    } else {
+        echo "Acción no reconocida para el sensor $sensor.";
+    }
+} else {
+    echo "Método de solicitud no permitido.";
+}
+?>
